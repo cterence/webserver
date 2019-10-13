@@ -9,22 +9,24 @@ const jwt = require("jsonwebtoken");
 require("dotenv/config");
 const app = express();
 
-const privateKey = fs.readFileSync(process.env.CERT_PRIVATE_KEY, "utf8");
-const certificate = fs.readFileSync(process.env.CERT_PUBLIC_KEY, "utf8");
-const ca = fs.readFileSync(process.env.CERT_CHAIN, "utf8");
+// const privateKey = fs.readFileSync(process.env.CERT_PRIVATE_KEY, "utf8");
+// const certificate = fs.readFileSync(process.env.CERT_PUBLIC_KEY, "utf8");
+// const ca = fs.readFileSync(process.env.CERT_CHAIN, "utf8");
 
-const ensureSecure = (req, res, next) => {
-    if (req.secure) {
-        return next();
-    }
-    res.redirect("https://" + req.hostname + req.url);
-};
+// const ensureSecure = (req, res, next) => {
+//     if (req.secure) {
+//         return next();
+//     }
+//     res.redirect("https://" + req.hostname + req.url);
+// };
 
-app.all("*", ensureSecure);
+// app.all("*", ensureSecure);
 app.use("/", express.static(__dirname + "/public"));
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(
+    bodyParser.urlencoded({
+        extended: true
+    })
+);
 app.use(bodyParser.json());
 app.use(cookieParser());
 
@@ -42,11 +44,11 @@ app.use(function(req, res, next) {
     next();
 });
 
-const credentials = {
-    key: privateKey,
-    cert: certificate,
-    ca: ca
-};
+// const credentials = {
+//     key: privateKey,
+//     cert: certificate,
+//     ca: ca
+// };
 
 const secret = process.env.JWT_SECRET;
 
@@ -105,19 +107,22 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/signup", async (req, res) => {
-    if (req.body.login && req.body.password) {
-        try {
-            const hash = await bcrypt.hash(req.body.password, 10);
-            await client.query("INSERT INTO web_user VALUES ($1, $2)", [
-                req.body.login,
-                hash
-            ]);
-            return res.status(200).json({ success: true });
-        } catch (err) {
-            return res.status(400).json({ success: false, err });
+    if (req.body.auth && req.body.auth === process.env.API_SIGNUP) {
+        if (req.body.login && req.body.password) {
+            try {
+                const hash = await bcrypt.hash(req.body.password, 10);
+                await client.query("INSERT INTO web_user VALUES ($1, $2)", [
+                    req.body.login,
+                    hash
+                ]);
+                return res.status(200).json({ success: true });
+            } catch (err) {
+                return res.status(400).json({ success: false, err });
+            }
         }
+        return res.status(400).json({ success: false });
     }
-    return res.status(400).json({ success: false });
+    return res.status(403).json({ success: false });
 });
 
 app.post("/logout", (req, res) => {
@@ -139,13 +144,19 @@ app.get("/protected", verifyToken, async (req, res) => {
     });
 });
 
-const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
+const port = 3000;
 
-httpServer.listen(80, () => {
-    console.log("HTTP Server running on port 80");
+app.listen(port, () => {
+    console.log("API listening on port", port);
 });
 
-httpsServer.listen(443, () => {
-    console.log("HTTPS Server running on port 443");
-});
+// const httpServer = http.createServer(app);
+// const httpsServer = https.createServer(credentials, app);
+
+// httpServer.listen(80, () => {
+//     console.log("HTTP Server running on port 80");
+// });
+
+// httpsServer.listen(443, () => {
+//     console.log("HTTPS Server running on port 443");
+// });
