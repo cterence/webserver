@@ -1,7 +1,7 @@
 const fs = require("fs");
 const http = require("http");
 const https = require("https");
-const cors = require("cors")
+const cors = require("cors");
 const express = require("express");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
@@ -31,9 +31,9 @@ app.use(
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.set('trust proxy', true);
+app.set("trust proxy", true);
 
-app.use(cors({credentials: true}));
+app.use(cors({ credentials: true }));
 
 // const credentials = {
 //     key: privateKey,
@@ -76,12 +76,10 @@ app.post("/login", async (req, res) => {
             const { login, password } = query.rows[0];
             if (await bcrypt.compare(req.body.password, password)) {
                 const token = await issueToken(login);
-                return res
-                    .status(200)
-                    .json({
-                        success: true,
-			token
-                    });
+                return res.status(200).json({
+                    success: true,
+                    token
+                });
             }
             return res.status(403).json({
                 success: false,

@@ -11,7 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && npm run start",
     "server": "cd server && npm run start",
-    "all": "concurrently --kill-others-on-fail 'npm run client' 'npm run server'"
+    "all": "concurrently --kill-others-on-fail \"npm run client\" \"npm run server\"",
+    "install-all": "concurrently \"npm i\" \"cd client && npm i\" \"cd server && npm i\" "
   },
   "keywords": [
     "web",

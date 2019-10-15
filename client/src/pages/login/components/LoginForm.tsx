@@ -1,8 +1,9 @@
 import React from "react";
-import { Formik, FormikActions } from "formik";
+import { Formik } from "formik";
 import { Login } from "../types/Login";
 import { postLogin } from "../../../services/auth";
 import LoginFormFields from "./LoginFormFields";
+import { useCookies } from "react-cookie";
 
 interface LoginFormProps {
     setMessage: (value: string) => void;
@@ -24,10 +25,12 @@ const validate = (values: Login) => {
 
 const LoginForm = (props: LoginFormProps) => {
     const { setMessage } = props;
+    const [, setCookie] = useCookies(["token"]);
 
     const onSubmit = async (values: Login) => {
         try {
-            await postLogin(values);
+            const response = await postLogin(values);
+            await setCookie("token", response.token);
             setMessage("Login successful");
         } catch (e) {
             setMessage("Login failed");

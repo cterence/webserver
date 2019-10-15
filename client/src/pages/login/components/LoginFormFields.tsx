@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect } from "react";
+import React, { ChangeEvent } from "react";
 import TextInput from "../../../components/TextInput";
 import { FormikProps } from "formik";
 import { Login } from "../types/Login";
@@ -10,7 +10,7 @@ interface LoginFormFieldsProps {
 
 const LoginFormFields = (props: LoginFormFieldsProps) => {
     const { formProps } = props;
-    const { values, setFieldValue, submitForm, errors, status } = formProps;
+    const { values, setFieldValue, submitForm, errors } = formProps;
 
     return (
         <div
