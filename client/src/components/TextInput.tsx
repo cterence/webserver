@@ -30,6 +30,7 @@ const StyledTextInput = styled.input`
     border-right: none;
     border-bottom: 1px solid #cccccc;
     width: 100%;
+    outline: none;
 `;
 
 const TextInput = (props: TextInputProps) => {

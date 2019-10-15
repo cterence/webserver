@@ -22,16 +22,16 @@ const app = express();
 // };
 
 // app.all("*", ensureSecure);
-app.use("/", express.static(__dirname + "/public"));
+// app.use("/", express.static(__dirname + "/public"));
 app.use(
     bodyParser.urlencoded({
-        extended: true
+        extended: false
     })
 );
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-
+app.set('trust proxy', true);
 
 app.use(cors({credentials: true}));
 
@@ -77,10 +77,10 @@ app.post("/login", async (req, res) => {
             if (await bcrypt.compare(req.body.password, password)) {
                 const token = await issueToken(login);
                 return res
-                    .cookie("token", token, { expiresIn: 14400 })
                     .status(200)
                     .json({
-                        success: true
+                        success: true,
+			token
                     });
             }
             return res.status(403).json({
