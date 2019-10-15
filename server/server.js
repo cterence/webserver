@@ -1,6 +1,7 @@
 const fs = require("fs");
 const http = require("http");
 const https = require("https");
+const cors = require("cors")
 const express = require("express");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
@@ -30,19 +31,9 @@ app.use(
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use(function(req, res, next) {
-    res.setHeader(
-        "Access-Control-Allow-Headers",
-        "X-Requested-With,content-type"
-    );
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader(
-        "Access-Control-Allow-Methods",
-        "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-    );
-    res.setHeader("Access-Control-Allow-Credentials", true);
-    next();
-});
+
+
+app.use(cors({credentials: true}));
 
 // const credentials = {
 //     key: privateKey,
@@ -54,6 +45,7 @@ const secret = process.env.JWT_SECRET;
 
 const { Client } = require("pg");
 const client = new Client({
+    host: process.env.PG_HOST,
     user: process.env.PG_USER,
     password: process.env.PG_PASSWORD,
     database: process.env.PG_DB
@@ -96,7 +88,7 @@ app.post("/login", async (req, res) => {
                 err: "Wrong password"
             });
         }
-        return res.status(404).json({
+        return res.status(403).json({
             success: false,
             message: "User not found"
         });

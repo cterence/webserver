@@ -4,13 +4,15 @@
   "description": "My webserver",
   "main": "server.js",
   "dependencies": {
+    "cross-env": "^6.0.3"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && npm run start",
     "server": "cd server && npm run start",
-    "all": "concurrently --kill-others-on-fail 'npm run client' 'npm run server'"
+    "all": "concurrently --kill-others-on-fail 'npm run client' 'npm run server'",
+    "all-win": "concurrently --kill-others-on-fail 'cross-env npm run client' 'cross-env npm run server'"
   },
   "keywords": [
     "web",
