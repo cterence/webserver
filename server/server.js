@@ -1,13 +1,16 @@
-const fs = require("fs");
-const http = require("http");
-const https = require("https");
-const cors = require("cors");
-const express = require("express");
-const bodyParser = require("body-parser");
-const bcrypt = require("bcrypt");
-const cookieParser = require("cookie-parser");
-const jwt = require("jsonwebtoken");
-require("dotenv/config");
+require('@babel/polyfill');
+// const fs = require("fs");
+// const http = require("http");
+// const https = require("https");
+import cors from "cors";
+import express from "express";
+import bodyParser from "body-parser";
+import bcrypt from "bcrypt";
+import cookieParser from "cookie-parser";
+import jwt from "jsonwebtoken";
+import path from "path";
+import "dotenv/config";
+
 const app = express();
 
 // const privateKey = fs.readFileSync(process.env.CERT_PRIVATE_KEY, "utf8");
@@ -22,7 +25,10 @@ const app = express();
 // };
 
 // app.all("*", ensureSecure);
-// app.use("/", express.static(__dirname + "/public"));
+if (process.env.NODE_ENV === "production") {
+    app.use("/", express.static(path.join(__dirname, "../../client/build")));
+}
+
 app.use(
     bodyParser.urlencoded({
         extended: false
@@ -134,7 +140,7 @@ app.get("/protected", verifyToken, async (req, res) => {
     });
 });
 
-const port = 3000;
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
     console.log("API listening on port", port);

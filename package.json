@@ -4,15 +4,26 @@
   "description": "My webserver",
   "main": "server.js",
   "dependencies": {
+    "npm": "^6.12.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
+    "babel-preset-es2015": "^6.24.1",
     "concurrently": "^5.0.0"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "client": "cd client && npm run start",
-    "server": "cd server && npm run start",
+    "build-client": "npm run --prefix client build",
+    "build-server": "npx babel --presets @babel/env server/src/ --out-dir dist --copy-files",
+    "client": " npm run --prefix client start",
+    "server": "npm run --prefix server start",
     "all": "concurrently --kill-others-on-fail \"npm run client\" \"npm run server\"",
-    "install-all": "concurrently \"npm i\" \"cd client && npm i\" \"cd server && npm i\" "
+    "prod-setup": "npm run install-all && npm run build-client && npm run build-server",
+    "prod-launch": "node dist/server.js",
+    "prod": "npm run prod-setup && npm run prod-launch",
+    "install-all": "npm install && npm install --prefix client && npm install --prefix server"
   },
   "keywords": [
     "web",
