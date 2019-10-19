@@ -5,15 +5,26 @@ import Button from "../../../components/Button";
 const Welcome = () => {
     return (
         <div>
-            <Link to="/login">
-                <Button
-                    style={{ float: "right", margin: "10px" }}
-                    onClick={() => {}}
-                    label="Login"
-                />
-            </Link>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <Link to="/login">
+                    <Button
+                        style={{ margin: "10px 10px 0 0" }}
+                        onClick={() => {}}
+                        label="Login"
+                    />
+                </Link>
+                <Link to="/signup">
+                    <Button
+                        style={{ margin: "10px 10px 0 0" }}
+                        onClick={() => {}}
+                        label="Sign up"
+                        outlined
+                    />
+                </Link>
+            </div>
             <div
                 style={{
+                    display: "flex",
                     paddingTop: "30px",
                     flexDirection: "column",
                     justifyContent: "center"
@@ -23,7 +34,8 @@ const Welcome = () => {
                     style={{
                         marginBottom: 0,
                         paddingBottom: 0,
-                        textAlign: "center"
+                        justifyContent: "center",
+                        display: "flex"
                     }}
                 >
                     Bienvenue
@@ -36,36 +48,6 @@ const Welcome = () => {
                     }}
                 >
                     Sur le site interweb de Térence Chateigné
-                </div>
-                <div style={{ textAlign: "center", paddingTop: "30px" }}>
-                    J'admet qu'il n'y a pour l'instant assez
-                    <span style={{ fontSize: "8px" }}>peu</span> de choses ici.
-                </div>
-                <div style={{ textAlign: "center", paddingTop: "30px" }}>
-                    Vous pouvez cependant consulter mon
-                    <span>
-                        {" "}
-                        <a
-                            style={{ textDecoration: "none" }}
-                            href="https://www.tchateigne.fr/resources/CV_Terence_Chateigne.pdf"
-                        >
-                            CV
-                        </a>
-                    </span>
-                    si cela vous intéresse.
-                </div>
-                <div style={{ textAlign: "center", paddingTop: "30px" }}>
-                    Vous pouvez même allez voir mon
-                    <a
-                        style={{ textDecoration: "none" }}
-                        href="https://www.linkedin.com/in/terencechateigne/"
-                    >
-                        LinkedIn
-                    </a>
-                    captivant.
-                </div>
-                <div style={{ textAlign: "center", paddingTop: " 100px" }}>
-                    Bonne visite.
                 </div>
             </div>
         </div>

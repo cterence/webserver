@@ -1,44 +1,46 @@
 import React, { useState } from "react";
 import { Formik } from "formik";
-import { Login } from "../types/Login";
-import { postLogin } from "../../../services/auth";
-import LoginFormFields from "./LoginFormFields";
+import { Signup } from "../types/Signup";
+import { postSignup } from "../../../services/auth";
+import SignupFormFields from "./SignupFormFields";
 import { useCookies } from "react-cookie";
 import { Redirect } from "react-router-dom";
 
-interface LoginFormProps {
+interface SignupFormProps {
     setMessage: (value: string) => void;
 }
 
-const initialValues = { login: "", password: "" };
+const initialValues = { login: "", password: "", key: "" };
 
-const validate = (values: Login) => {
-    let errors: { login?: string; password?: string } = {};
+const validate = (values: Signup) => {
+    let errors: { login?: string; password?: string; key?: string } = {};
     if (!values.login) {
         errors.login = "This field is required";
     }
     if (!values.password) {
         errors.password = "This field is required";
     }
+    if (!values.key) {
+        errors.key = "This field is required";
+    }
     return errors;
 };
 
-const LoginForm = (props: LoginFormProps) => {
+const SignupForm = (props: SignupFormProps) => {
     const { setMessage } = props;
     const [, setCookie] = useCookies(["token"]);
     const [redirect, setRedirect] = useState(false);
 
-    const onSubmit = async (values: Login) => {
+    const onSubmit = async (values: Signup) => {
         try {
-            const response = await postLogin(values);
+            const response = await postSignup(values);
             await setCookie("token", response.token);
-            setMessage("Login successful");
+            setMessage("Signup successful");
             setTimeout(() => setRedirect(true), 1000);
         } catch (e) {
-            setMessage("Login failed");
+            setMessage("Signup failed");
         }
     };
-
     if (redirect) return <Redirect to="/" />;
     return (
         <Formik
@@ -46,9 +48,9 @@ const LoginForm = (props: LoginFormProps) => {
             onSubmit={onSubmit}
             validate={validate}
             validateOnChange={false}
-            render={formProps => <LoginFormFields formProps={formProps} />}
+            render={formProps => <SignupFormFields formProps={formProps} />}
         />
     );
 };
 
-export default LoginForm;
+export default SignupForm;

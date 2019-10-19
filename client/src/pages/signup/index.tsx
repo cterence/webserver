@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import LoginForm from "./components/LoginForm";
+import SignupForm from "./components/SignupForm";
 import { Link } from "react-router-dom";
 import Button from "../../components/Button";
 
-const LoginPage = () => {
+const SignupPage = () => {
     const [message, setMessage] = useState("");
 
     return (
@@ -47,9 +47,9 @@ const LoginPage = () => {
                                 marginBottom: "30px"
                             }}
                         >
-                            Login
+                            Signup
                         </span>
-                        <LoginForm setMessage={setMessage} />
+                        <SignupForm setMessage={setMessage} />
                         {message && <div>{message}</div>}
                     </div>
                 </div>
@@ -58,4 +58,4 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+export default SignupPage;

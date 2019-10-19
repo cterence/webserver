@@ -1,4 +1,4 @@
-require('@babel/polyfill');
+require("@babel/polyfill");
 // const fs = require("fs");
 // const http = require("http");
 // const https = require("https");
@@ -9,14 +9,18 @@ import bcrypt from "bcrypt";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
 import path from "path";
-import "dotenv/config";
+import dotenv from "dotenv";
+import appRoot from "app-root-path";
+import { Client } from "pg";
+
+appRoot.setPath(path.join(appRoot.path, "../"));
+dotenv.config({ path: path.join(appRoot.path, ".env") });
 
 const app = express();
 
 // const privateKey = fs.readFileSync(process.env.CERT_PRIVATE_KEY, "utf8");
 // const certificate = fs.readFileSync(process.env.CERT_PUBLIC_KEY, "utf8");
 // const ca = fs.readFileSync(process.env.CERT_CHAIN, "utf8");
-
 // const ensureSecure = (req, res, next) => {
 //     if (req.secure) {
 //         return next();
@@ -26,7 +30,7 @@ const app = express();
 
 // app.all("*", ensureSecure);
 if (process.env.NODE_ENV === "production") {
-    app.use("/", express.static(path.join(__dirname, "../../client/build")));
+    app.use("/", express.static(path.join(appRoot.path, "client/build")));
 }
 
 app.use(
@@ -35,7 +39,7 @@ app.use(
     })
 );
 app.use(bodyParser.json());
-app.use(cookieParser());
+app.use(cookieParser({ secret: process.env.COOKIE_SECRET }));
 
 app.set("trust proxy", true);
 
@@ -48,15 +52,22 @@ app.use(cors({ credentials: true }));
 // };
 
 const secret = process.env.JWT_SECRET;
-
-const { Client } = require("pg");
 const client = new Client({
     host: process.env.PG_HOST,
     user: process.env.PG_USER,
     password: process.env.PG_PASSWORD,
     database: process.env.PG_DB
 });
-client.connect();
+
+const connect_pg = async () => {
+    try {
+        await client.connect();
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+connect_pg();
 
 const issueToken = async login => {
     return jwt.sign({ login }, secret, { expiresIn: "4h" });
@@ -103,7 +114,7 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/signup", async (req, res) => {
-    if (req.body.auth && req.body.auth === process.env.API_SIGNUP) {
+    if (req.body.key && req.body.key === process.env.API_SIGNUP) {
         if (req.body.login && req.body.password) {
             try {
                 const hash = await bcrypt.hash(req.body.password, 10);
