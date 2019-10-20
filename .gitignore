@@ -64,3 +64,4 @@ typings/
 *.http
 server/dist/
 client/build/
+https.js
