@@ -43,7 +43,7 @@ const LoginFormFields = (props: LoginFormFieldsProps) => {
                 />
             </div>
             <div style={{ float: "right" }}>
-                <Button label="Connexion" onClick={submitForm} />
+                <Button label="Connect" onClick={submitForm} />
             </div>
         </div>
     );

@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 import SignupForm from "./components/SignupForm";
-import { Link } from "react-router-dom";
-import Button from "../../components/Button";
+import Header from "../../components/Header";
 
 const SignupPage = () => {
     const [message, setMessage] = useState("");
 
     return (
         <>
-            <Link to="/">
-                <Button
-                    style={{ float: "right", margin: "10px" }}
-                    onClick={() => {}}
-                    label="Home"
-                />
-            </Link>
+            <Header buttons={[{ onClick: () => {}, label: "Home", to: "/" }]} />
             <div
                 style={{
                     width: "100%",
@@ -47,7 +40,7 @@ const SignupPage = () => {
                                 marginBottom: "30px"
                             }}
                         >
-                            Signup
+                            Sign up
                         </span>
                         <SignupForm setMessage={setMessage} />
                         {message && <div>{message}</div>}

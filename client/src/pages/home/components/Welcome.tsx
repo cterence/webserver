@@ -1,27 +1,36 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Button from "../../../components/Button";
+import Header from "../../../components/Header";
+import { ButtonProps, ButtonVariant } from "../../../components/Button";
+import { useCookies } from "react-cookie";
 
 const Welcome = () => {
+    const [cookies, , removeCookie] = useCookies(["token"]);
+
+    const headerButtons: ButtonProps[] = cookies.token
+        ? [
+              {
+                  onClick: () => {
+                      removeCookie("token");
+                  },
+                  label: "Log out",
+                  variant: ButtonVariant.DANGER
+              }
+          ]
+        : [
+              { onClick: () => {}, label: "Log in", to: "/login" },
+              {
+                  onClick: () => {},
+                  label: "Sign up",
+                  to: "/signup",
+                  variant: ButtonVariant.OUTLINED
+              }
+          ];
+
+    if (cookies.token) headerButtons.push();
+
     return (
         <div>
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                <Link to="/login">
-                    <Button
-                        style={{ margin: "10px 10px 0 0" }}
-                        onClick={() => {}}
-                        label="Login"
-                    />
-                </Link>
-                <Link to="/signup">
-                    <Button
-                        style={{ margin: "10px 10px 0 0" }}
-                        onClick={() => {}}
-                        label="Sign up"
-                        outlined
-                    />
-                </Link>
-            </div>
+            <Header buttons={headerButtons} />
             <div
                 style={{
                     display: "flex",
@@ -38,7 +47,7 @@ const Welcome = () => {
                         display: "flex"
                     }}
                 >
-                    Bienvenue
+                    Welcome
                 </h1>
                 <div
                     style={{
@@ -47,7 +56,7 @@ const Welcome = () => {
                         paddingTop: "30px"
                     }}
                 >
-                    Sur le site interweb de Térence Chateigné
+                    To Térence Chateigné's website
                 </div>
             </div>
         </div>

@@ -31,11 +31,11 @@ const LoginForm = (props: LoginFormProps) => {
     const onSubmit = async (values: Login) => {
         try {
             const response = await postLogin(values);
-            await setCookie("token", response.token);
-            setMessage("Login successful");
+            setCookie("token", response.token);
+            setMessage("Log in successful");
             setTimeout(() => setRedirect(true), 1000);
         } catch (e) {
-            setMessage("Login failed");
+            setMessage("Log in failed");
         }
     };
 

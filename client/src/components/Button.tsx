@@ -1,14 +1,20 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-interface ButtonProps {
+export enum ButtonVariant {
+    OUTLINED,
+    DANGER
+}
+export interface ButtonProps {
     style?: React.CSSProperties;
-    outlined?: boolean;
+    variant?: ButtonVariant;
     label: string;
     onClick: () => void;
+    to?: string;
 }
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<{ to?: string }>`
+    cursor: pointer;
     outline: none;
     min-width: 70px;
     border: 1px solid #3333ff;
@@ -43,12 +49,30 @@ const StyledOutlinedButton = styled(StyledButton)`
     }
 `;
 
+const StyledDangerButton = styled(StyledButton)`
+    background-color: #ff3333;
+    border: solid 1px #ff3333;
+    color: #ffffff;
+    &:hover {
+        border: solid 1px #ff9999;
+        background-color: #ff9999;
+    }
+    &:active {
+        border: solid 1px #ff0000;
+        background-color: #ff0000;
+    }
+`;
+
 const Button = (props: ButtonProps) => {
-    const { style, outlined, onClick, label } = props;
-    const StyledComponent = outlined ? StyledOutlinedButton : StyledButton;
+    const { style, variant, onClick, label, to } = props;
+    const { OUTLINED, DANGER } = ButtonVariant;
+    const StyledComponent =
+        (variant === OUTLINED && StyledOutlinedButton) ||
+        (variant === DANGER && StyledDangerButton) ||
+        StyledButton;
 
     return (
-        <StyledComponent onClick={onClick} style={style}>
+        <StyledComponent onClick={onClick} style={style} to={to}>
             {label}
         </StyledComponent>
     );

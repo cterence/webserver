@@ -54,7 +54,7 @@ const SignupFormFields = (props: SignupFormFieldsProps) => {
                 />
             </div>
             <div style={{ float: "right" }}>
-                <Button label="Connexion" onClick={submitForm} />
+                <Button label="Register" onClick={submitForm} />
             </div>
         </div>
     );

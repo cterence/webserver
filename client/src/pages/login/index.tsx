@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 import LoginForm from "./components/LoginForm";
-import { Link } from "react-router-dom";
-import Button from "../../components/Button";
+import Header from "../../components/Header";
 
 const LoginPage = () => {
     const [message, setMessage] = useState("");
 
     return (
         <>
-            <Link to="/">
-                <Button
-                    style={{ float: "right", margin: "10px" }}
-                    onClick={() => {}}
-                    label="Home"
-                />
-            </Link>
+            <Header buttons={[{ onClick: () => {}, label: "Home", to: "/" }]} />
             <div
                 style={{
                     width: "100%",
@@ -47,7 +40,7 @@ const LoginPage = () => {
                                 marginBottom: "30px"
                             }}
                         >
-                            Login
+                            Log in
                         </span>
                         <LoginForm setMessage={setMessage} />
                         {message && <div>{message}</div>}
