@@ -2,10 +2,11 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
-import cors from "cors";
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import cors from "cors";
+import helmet from "helmet";
 import path from "path";
 import dotenv from "dotenv";
 import appRoot from "app-root-path";
@@ -13,8 +14,7 @@ import appRoot from "app-root-path";
 import privateApi from "./routes/private";
 import publicApi from "./routes/public";
 
-appRoot.setPath(path.join(appRoot.path, "../"));
-dotenv.config({ path: path.join(appRoot.path, ".env") });
+dotenv.config();
 
 const app = express();
 
@@ -30,9 +30,8 @@ app.use(
 app.use(bodyParser.json());
 app.use(cookieParser({ secret: process.env.COOKIE_SECRET }));
 
-app.set("trust proxy", true);
-
-app.use(cors({ credentials: true }));
+app.use(cors());
+app.use(helmet());
 
 app.use("/api", privateApi());
 app.use("/api", publicApi());
