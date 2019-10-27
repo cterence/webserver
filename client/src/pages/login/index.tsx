@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import LoginForm from "./components/LoginForm";
-import Header from "../../components/Header";
+import { LoginForm } from "./components";
+import { Header } from "../../components";
 
 const LoginPage = () => {
     const [message, setMessage] = useState("");

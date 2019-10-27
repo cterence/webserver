@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../../../components/Header";
-import { ButtonProps, ButtonVariant } from "../../../components/Button";
+import { Header } from "../../../components";
+import { ButtonProps, ButtonVariant } from "../../../components/types";
 import { useCookies } from "react-cookie";
 
 const Welcome = () => {

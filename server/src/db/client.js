@@ -15,9 +15,19 @@ const pool = new Pool({
 
 export const query = async (text, params) => {
     const start = Date.now();
-    const result = await pool.query(text, params);
-    console.log("[DB] Executed query: ", text, "in", Date.now() - start, "ms");
-    return result;
+    try {
+        const result = await pool.query(text, params);
+        console.log(
+            "[DB] Executed query:",
+            text,
+            "in",
+            Date.now() - start,
+            "ms"
+        );
+        return result;
+    } catch (err) {
+        console.error(err);
+    }
 };
 
 export const getClient = async () => {

@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
-import TextInput from "../../../components/TextInput";
+import { TextInput } from "../../../components";
 import { FormikProps } from "formik";
-import { Signup } from "../types/Signup";
+import { Signup } from "./types";
 import Button from "../../../components/Button";
 
 interface SignupFormFieldsProps {

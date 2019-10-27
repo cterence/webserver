@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SignupForm from "./components/SignupForm";
-import Header from "../../components/Header";
+import { Header } from "../../components";
 
 const SignupPage = () => {
     const [message, setMessage] = useState("");

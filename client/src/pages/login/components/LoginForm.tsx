@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Formik } from "formik";
-import { Login } from "../types/Login";
+import { Login } from "./types";
 import { postLogin } from "../../../services/auth";
-import LoginFormFields from "./LoginFormFields";
+import { LoginFormFields } from ".";
 import { useCookies } from "react-cookie";
 import { Redirect } from "react-router-dom";
 
@@ -31,7 +31,7 @@ const LoginForm = (props: LoginFormProps) => {
     const onSubmit = async (values: Login) => {
         try {
             const response = await postLogin(values);
-            setCookie("token", response.token);
+            setCookie("token", response.token, { httpOnly: false });
             setMessage("Log in successful");
             setTimeout(() => setRedirect(true), 1000);
         } catch (e) {

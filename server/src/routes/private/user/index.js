@@ -32,6 +32,7 @@ const userRoutes = router => {
             success: false
         });
     });
+
     router.route("/signup").post(async (req, res) => {
         if (req.body.key && req.body.key === process.env.API_SIGNUP) {
             if (req.body.login && req.body.password) {
@@ -50,6 +51,7 @@ const userRoutes = router => {
         }
         return res.status(403).json({ success: false });
     });
+
     router.route("/logout").post((req, res) => {
         if (req.cookies.token) {
             return res

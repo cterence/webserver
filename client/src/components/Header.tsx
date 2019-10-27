@@ -1,6 +1,7 @@
 import React from "react";
-import Button, { ButtonProps } from "./Button";
+import Button from "./Button";
 import { Link } from "react-router-dom";
+import { ButtonProps } from "./types";
 
 interface HeaderProps {
     buttons: ButtonProps[];

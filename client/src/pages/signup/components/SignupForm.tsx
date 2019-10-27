@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Formik } from "formik";
-import { Signup } from "../types/Signup";
+import { Signup } from "./types";
 import { postSignup } from "../../../services/auth";
 import SignupFormFields from "./SignupFormFields";
 import { useCookies } from "react-cookie";

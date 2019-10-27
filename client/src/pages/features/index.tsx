@@ -9,7 +9,7 @@ const FeaturesPage = () => {
     useEffect(() => {
         const verify = async () => {
             if (cookies.token) {
-                const response = await verifyToken(cookies.token);
+                const response = await verifyToken();
                 setIsAuthenticated(response.success);
             }
         };

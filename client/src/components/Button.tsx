@@ -1,17 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-
-export enum ButtonVariant {
-    OUTLINED,
-    DANGER
-}
-export interface ButtonProps {
-    style?: React.CSSProperties;
-    variant?: ButtonVariant;
-    label: string;
-    onClick: () => void;
-    to?: string;
-}
+import { ButtonProps, ButtonVariant } from "./types";
 
 const StyledButton = styled.button<{ to?: string }>`
     cursor: pointer;
