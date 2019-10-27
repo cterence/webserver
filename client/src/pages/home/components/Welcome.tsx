@@ -9,6 +9,10 @@ const Welcome = () => {
     const headerButtons: ButtonProps[] = cookies.token
         ? [
               {
+                  onClick: () => {},
+                  label: "Features"
+              },
+              {
                   onClick: () => {
                       removeCookie("token");
                   },

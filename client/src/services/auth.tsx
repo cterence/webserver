@@ -5,7 +5,7 @@ import { Cookies } from "react-cookie";
 
 const PREFIX = "/api";
 
-const getToken = () => {
+export const getToken = () => {
     const cookies = new Cookies();
     return cookies.get("token");
 };

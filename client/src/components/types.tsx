@@ -10,3 +10,8 @@ export interface ButtonProps {
     onClick: () => void;
     to?: string;
 }
+
+export interface OptionProps {
+    code: string;
+    name: string;
+}

@@ -1,6 +1,7 @@
 import { query } from "../../../db/client.js";
 import bcrypt from "bcrypt";
 import { issueToken } from "../../../utils/authentication";
+import { verifyToken } from "../../../middleware/authentication";
 
 const userRoutes = router => {
     router.route("/login").post(async (req, res) => {
@@ -38,9 +39,10 @@ const userRoutes = router => {
             if (req.body.login && req.body.password) {
                 try {
                     const hash = await bcrypt.hash(req.body.password, 10);
-                    await query("INSERT INTO web_user VALUES ($1, $2)", [
+                    await query("INSERT INTO web_user VALUES ($1, $2, $3)", [
                         req.body.login,
-                        hash
+                        hash,
+                        req.body.role.value
                     ]);
                     return res.status(200).json({ success: true });
                 } catch (err) {
@@ -62,6 +64,17 @@ const userRoutes = router => {
         return res
             .status(400)
             .json({ success: false, message: "You weren't logged in" });
+    });
+
+    router.route("/roles").get(async (req, res) => {
+        const result = await query("SELECT * FROM web_roles");
+        if (result.rows.length) {
+            const roles = result.rows.map(row => {
+                const { code, name } = row;
+                return { code, name };
+            });
+            return res.status(200).json({ success: true, roles });
+        }
     });
 };
 

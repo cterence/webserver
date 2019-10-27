@@ -10,19 +10,37 @@ interface SignupFormProps {
     setMessage: (value: string) => void;
 }
 
-const initialValues = { login: "", password: "", key: "" };
+const initialValues = {
+    login: "",
+    password: "",
+    confirmPassword: "",
+    role: "",
+    key: ""
+};
 
 const validate = (values: Signup) => {
-    let errors: { login?: string; password?: string; key?: string } = {};
-    if (!values.login) {
-        errors.login = "This field is required";
-    }
-    if (!values.password) {
-        errors.password = "This field is required";
-    }
-    if (!values.key) {
-        errors.key = "This field is required";
-    }
+    let errors: {
+        login?: string;
+        password?: string;
+        key?: string;
+        role?: string;
+        confirmPassword?: string;
+    } = {};
+    if (!values.login) errors.login = "This field is required";
+
+    if (!values.password) errors.password = "This field is required";
+
+    if (!values.confirmPassword)
+        errors.confirmPassword = "This field is required";
+
+    if (!values.role) errors.role = "This field is required";
+
+    if (!values.key) errors.key = "This field is required";
+
+    if (values.password && values.confirmPassword)
+        if (values.password !== values.confirmPassword)
+            errors.confirmPassword = "The passwords do not match";
+
     return errors;
 };
 
