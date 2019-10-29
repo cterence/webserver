@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import { has } from "lodash";
 
 const secret = process.env.JWT_SECRET;
 

@@ -21,7 +21,7 @@ const SignupPage = () => {
                         justifyContent: "center",
                         alignItems: "center",
                         marginTop: "50px",
-                        width: "50vh"
+                        width: "20%"
                     }}
                 >
                     <div
@@ -43,7 +43,17 @@ const SignupPage = () => {
                             Sign up
                         </span>
                         <SignupForm setMessage={setMessage} />
-                        {message && <div>{message}</div>}
+                        {message && (
+                            <div
+                                style={{
+                                    marginTop: "10px",
+                                    display: "flex",
+                                    justifyContent: "center"
+                                }}
+                            >
+                                {message}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

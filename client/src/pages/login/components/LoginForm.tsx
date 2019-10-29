@@ -32,8 +32,8 @@ const LoginForm = (props: LoginFormProps) => {
         try {
             const response = await postLogin(values);
             setCookie("token", response.token, { httpOnly: false });
-            setMessage("Log in successful");
-            setTimeout(() => setRedirect(true), 1000);
+            setMessage("Log in successful, redirecting...");
+            setTimeout(() => setRedirect(true), 1500);
         } catch (e) {
             setMessage("Log in failed");
         }

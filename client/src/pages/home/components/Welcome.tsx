@@ -10,7 +10,8 @@ const Welcome = () => {
         ? [
               {
                   onClick: () => {},
-                  label: "Features"
+                  label: "Features",
+                  to: "/features"
               },
               {
                   onClick: () => {
@@ -61,6 +62,15 @@ const Welcome = () => {
                     }}
                 >
                     To Térence Chateigné's website
+                </div>
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        paddingTop: "30px"
+                    }}
+                >
+                    <a href="/public/resources/CV_Terence_Chateigne.pdf">CV</a>
                 </div>
             </div>
         </div>

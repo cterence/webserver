@@ -12,6 +12,7 @@ import appRoot from "app-root-path";
 
 import privateApi from "./routes/private";
 import publicApi from "./routes/public";
+import { isAuthenticated } from "./middleware/authentication";
 
 dotenv.config();
 
@@ -20,6 +21,8 @@ const app = express();
 if (process.env.NODE_ENV === "production") {
     app.use("/", express.static(path.join(appRoot.path, "client/build")));
 }
+
+app.use("/public", express.static(path.join(appRoot.path, "server/public/")));
 
 app.use(
     bodyParser.urlencoded({
@@ -32,8 +35,8 @@ app.use(cookieParser({ secret: process.env.COOKIE_SECRET }));
 app.use(cors());
 app.use(helmet());
 
-app.use("/api", privateApi());
 app.use("/api", publicApi());
+app.use("/api", isAuthenticated, privateApi());
 
 const port = process.env.PORT || 5000;
 

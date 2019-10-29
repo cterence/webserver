@@ -14,7 +14,6 @@ const initialValues = {
     login: "",
     password: "",
     confirmPassword: "",
-    role: "",
     key: ""
 };
 
@@ -23,7 +22,6 @@ const validate = (values: Signup) => {
         login?: string;
         password?: string;
         key?: string;
-        role?: string;
         confirmPassword?: string;
     } = {};
     if (!values.login) errors.login = "This field is required";
@@ -32,8 +30,6 @@ const validate = (values: Signup) => {
 
     if (!values.confirmPassword)
         errors.confirmPassword = "This field is required";
-
-    if (!values.role) errors.role = "This field is required";
 
     if (!values.key) errors.key = "This field is required";
 
@@ -53,10 +49,10 @@ const SignupForm = (props: SignupFormProps) => {
         try {
             const response = await postSignup(values);
             await setCookie("token", response.token);
-            setMessage("Signup successful");
-            setTimeout(() => setRedirect(true), 1000);
+            setMessage("Sign up successful, redirecting...");
+            setTimeout(() => setRedirect(true), 1500);
         } catch (e) {
-            setMessage("Signup failed");
+            setMessage("Sign up failed");
         }
     };
     if (redirect) return <Redirect to="/" />;

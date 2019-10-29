@@ -10,9 +10,9 @@ const StyledButton = styled.button<{ to?: string }>`
     border-radius: 6px;
     padding: 10px;
     background-color: #3333ff;
+    font-family: CMU Roman;
     color: white;
     font-size: 14px;
-    font-family: "Arial";
     &:hover {
         background-color: #9999ff;
         border: 1px solid #9999ff;
