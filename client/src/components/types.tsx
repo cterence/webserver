@@ -9,6 +9,8 @@ export interface ButtonProps {
     label: string;
     onClick: () => void;
     to?: string;
+    isLoading?: boolean;
+    disabled?: boolean;
 }
 
 export interface OptionProps {

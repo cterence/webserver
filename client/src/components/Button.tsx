@@ -1,11 +1,14 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { css } from "@emotion/core";
 import { ButtonProps, ButtonVariant } from "./types";
+import PulseLoader from "react-spinners/PulseLoader";
 
 const StyledButton = styled.button<{ to?: string }>`
     cursor: pointer;
     outline: none;
-    min-width: 70px;
+    min-width: 80px;
+    min-height: 40px;
     border: 1px solid #3333ff;
     border-radius: 6px;
     padding: 10px;
@@ -53,7 +56,7 @@ const StyledDangerButton = styled(StyledButton)`
 `;
 
 const Button = (props: ButtonProps) => {
-    const { style, variant, onClick, label, to } = props;
+    const { style, variant, onClick, label, to, isLoading, disabled } = props;
     const { OUTLINED, DANGER } = ButtonVariant;
     const StyledComponent =
         (variant === OUTLINED && StyledOutlinedButton) ||
@@ -61,8 +64,28 @@ const Button = (props: ButtonProps) => {
         StyledButton;
 
     return (
-        <StyledComponent onClick={onClick} style={style} to={to}>
-            {label}
+        <StyledComponent
+            onClick={onClick}
+            style={style}
+            to={to}
+            disabled={disabled || isLoading}
+        >
+            <span>
+                {isLoading ? (
+                    <PulseLoader
+                        css={css`
+                            display: flex;
+                            justify-content: center;
+                            text-align: center;
+                        `}
+                        sizeUnit={"px"}
+                        size={14}
+                        color={"#ffffff"}
+                    />
+                ) : (
+                    label
+                )}
+            </span>
         </StyledComponent>
     );
 };

@@ -27,15 +27,19 @@ const LoginForm = (props: LoginFormProps) => {
     const { setMessage } = props;
     const [, setCookie] = useCookies(["token"]);
     const [redirect, setRedirect] = useState(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const onSubmit = async (values: Login) => {
         try {
+            setIsLoading(true);
             const response = await postLogin(values);
             setCookie("token", response.token, { httpOnly: false });
             setMessage("Log in successful, redirecting...");
             setTimeout(() => setRedirect(true), 1500);
         } catch (e) {
             setMessage("Log in failed");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -46,7 +50,9 @@ const LoginForm = (props: LoginFormProps) => {
             onSubmit={onSubmit}
             validate={validate}
             validateOnChange={false}
-            render={formProps => <LoginFormFields formProps={formProps} />}
+            render={formProps => (
+                <LoginFormFields formProps={formProps} isLoading={isLoading} />
+            )}
         />
     );
 };

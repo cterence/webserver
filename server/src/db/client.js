@@ -14,14 +14,16 @@ const pool = new Pool({
 });
 
 export const query = async (text, params) => {
-    const start = Date.now();
+    const time = new Date();
     try {
         const result = await pool.query(text, params);
         console.log(
-            "[DB] Executed query:",
+            "[DB]",
+            time.toLocaleString("fr-FR"),
+            "Executed query:",
             text,
             "in",
-            Date.now() - start,
+            Date.now() - time,
             "ms"
         );
         return result;

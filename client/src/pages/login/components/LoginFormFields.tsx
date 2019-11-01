@@ -5,10 +5,11 @@ import { Login } from "./types";
 
 interface LoginFormFieldsProps {
     formProps: FormikProps<Login>;
+    isLoading: boolean;
 }
 
 const LoginFormFields = (props: LoginFormFieldsProps) => {
-    const { formProps } = props;
+    const { formProps, isLoading } = props;
     const { values, setFieldValue, submitForm, errors } = formProps;
 
     return (
@@ -42,7 +43,11 @@ const LoginFormFields = (props: LoginFormFieldsProps) => {
                 />
             </div>
             <div style={{ float: "right" }}>
-                <Button label="Connect" onClick={submitForm} />
+                <Button
+                    label="Connect"
+                    onClick={submitForm}
+                    isLoading={isLoading}
+                />
             </div>
         </div>
     );
