@@ -4,6 +4,7 @@ import "regenerator-runtime/runtime";
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import fs from "fs";
 import cors from "cors";
 import helmet from "helmet";
 import path from "path";
@@ -37,6 +38,28 @@ app.use(helmet());
 
 app.use("/api", publicApi());
 app.use("/api", isAuthenticated, privateApi());
+
+app.use((req, res) => {
+    res.status(404);
+
+    // respond with json
+    if (req.accepts("html")) {
+        const notFoundPath = path.join(appRoot.path, "client/public/404.html");
+        if (fs.existsSync(notFoundPath)) {
+            res.sendFile(notFoundPath);
+            return;
+        }
+    }
+
+    // respond with json
+    if (req.accepts("json")) {
+        res.send({ error: "Not found" });
+        return;
+    }
+
+    // default to plain-text. send()
+    res.type("txt").send("Not found");
+});
 
 const port = process.env.PORT || 5000;
 
