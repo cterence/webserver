@@ -2,7 +2,7 @@ import { query } from "../../../db/client.js";
 import bcrypt from "bcrypt";
 import { issueToken } from "../../../utils/authentication";
 
-const userRoutes = router => {
+const userRoutes = (router) => {
     router.route("/login").post(async (req, res) => {
         if (req.body.login && req.body.password) {
             const result = await query(
@@ -15,21 +15,21 @@ const userRoutes = router => {
                     const token = await issueToken(login);
                     return res.status(200).json({
                         success: true,
-                        token
+                        token,
                     });
                 }
                 return res.status(403).json({
                     success: false,
-                    err: "Wrong password"
+                    err: "Wrong password",
                 });
             }
             return res.status(403).json({
                 success: false,
-                message: "User not found"
+                message: "User not found",
             });
         }
         return res.status(403).json({
-            success: false
+            success: false,
         });
     });
 
@@ -41,7 +41,7 @@ const userRoutes = router => {
                     await query("INSERT INTO web_user VALUES ($1, $2, $3)", [
                         req.body.login,
                         hash,
-                        req.body.role.value
+                        req.body.role.value,
                     ]);
                     return res.status(200).json({ success: true });
                 } catch (err) {
@@ -55,10 +55,7 @@ const userRoutes = router => {
 
     router.route("/logout").post((req, res) => {
         if (req.cookies.token) {
-            return res
-                .clearCookie("token")
-                .status(204)
-                .send();
+            return res.clearCookie("token").status(204).send();
         }
         return res
             .status(400)

@@ -6,7 +6,7 @@ const PREFIX = "/api";
 export const getRoles = async () => {
     const url = PREFIX + "/roles";
     const response = await axios.get(url, {
-        headers: { Authorization: `Bearer ${getToken()}` }
+        headers: { Authorization: `Bearer ${getToken()}` },
     });
     return response.data;
 };

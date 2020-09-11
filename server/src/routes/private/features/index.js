@@ -1,5 +1,5 @@
 import { verifyToken } from "../../../middleware/authentication";
 
-const featuresRoutes = router => {};
+const featuresRoutes = (router) => {};
 
 export default userRoutes;

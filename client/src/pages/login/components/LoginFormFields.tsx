@@ -14,7 +14,7 @@ const LoginFormFields = (props: LoginFormFieldsProps) => {
 
     return (
         <div
-            onKeyDown={e => {
+            onKeyDown={(e) => {
                 if (e.key === "Enter") {
                     submitForm();
                 }

@@ -14,7 +14,7 @@ const initialValues = {
     login: "",
     password: "",
     confirmPassword: "",
-    key: ""
+    key: "",
 };
 
 const validate = (values: Signup) => {
@@ -62,7 +62,7 @@ const SignupForm = (props: SignupFormProps) => {
             onSubmit={onSubmit}
             validate={validate}
             validateOnChange={false}
-            render={formProps => <SignupFormFields formProps={formProps} />}
+            render={(formProps) => <SignupFormFields formProps={formProps} />}
         />
     );
 };

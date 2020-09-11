@@ -50,7 +50,7 @@ const LoginForm = (props: LoginFormProps) => {
             onSubmit={onSubmit}
             validate={validate}
             validateOnChange={false}
-            render={formProps => (
+            render={(formProps) => (
                 <LoginFormFields formProps={formProps} isLoading={isLoading} />
             )}
         />

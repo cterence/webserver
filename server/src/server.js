@@ -27,7 +27,7 @@ app.use("/public", express.static(path.join(appRoot.path, "server/public/")));
 
 app.use(
     bodyParser.urlencoded({
-        extended: false
+        extended: false,
     })
 );
 app.use(bodyParser.json());

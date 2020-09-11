@@ -25,7 +25,7 @@ export const postSignup = async (values: Signup) => {
 export const verifyToken = async () => {
     const url = PREFIX + "/verify";
     const response = await axios.get(url, {
-        headers: { Authorization: `Bearer ${getToken()}` }
+        headers: { Authorization: `Bearer ${getToken()}` },
     });
     return response.data;
 };

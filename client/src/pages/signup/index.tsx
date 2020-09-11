@@ -12,7 +12,7 @@ const SignupPage = () => {
                 style={{
                     width: "100%",
                     display: "flex",
-                    justifyContent: "center"
+                    justifyContent: "center",
                 }}
             >
                 <div
@@ -21,14 +21,14 @@ const SignupPage = () => {
                         justifyContent: "center",
                         alignItems: "center",
                         marginTop: "50px",
-                        width: "20%"
+                        width: "20%",
                     }}
                 >
                     <div
                         style={{
                             display: "flex",
                             flexDirection: "column",
-                            width: "100%"
+                            width: "100%",
                         }}
                     >
                         <span
@@ -37,7 +37,7 @@ const SignupPage = () => {
                                 justifyContent: "center",
                                 width: "100%",
                                 fontSize: "24px",
-                                marginBottom: "30px"
+                                marginBottom: "30px",
                             }}
                         >
                             Sign up
@@ -48,7 +48,7 @@ const SignupPage = () => {
                                 style={{
                                     marginTop: "10px",
                                     display: "flex",
-                                    justifyContent: "center"
+                                    justifyContent: "center",
                                 }}
                             >
                                 {message}

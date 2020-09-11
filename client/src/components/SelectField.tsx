@@ -30,9 +30,9 @@ const StyledSelectField = styled(Select)`
 const SelectField = (props: SelectFieldProps) => {
     const { value, onChange, options, placeholder, label, errorLabel } = props;
 
-    const selectOptions = options.map(option => ({
+    const selectOptions = options.map((option) => ({
         value: option.code,
-        label: option.name
+        label: option.name,
     }));
     return (
         <div>

@@ -1,6 +1,6 @@
 export enum ButtonVariant {
     OUTLINED,
-    DANGER
+    DANGER,
 }
 
 export interface ButtonProps {
