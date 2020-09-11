@@ -42,7 +42,6 @@ app.use("/api", isAuthenticated, privateApi());
 app.use((req, res) => {
     res.status(404);
 
-    // respond with json
     if (req.accepts("html")) {
         const notFoundPath = path.join(appRoot.path, "client/public/404.html");
         if (fs.existsSync(notFoundPath)) {

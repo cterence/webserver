@@ -27,7 +27,7 @@
         "server": "npm run --prefix server start",
         "all": "concurrently --kill-others-on-fail \"npm run client\" \"npm run server\"",
         "prod-build": "npm run build-client && npm run build-server",
-        "prod-launch": "node server/dist/server.js",
+        "prod-launch": "NODE_ENV=production node server/dist/server.js",
         "prod": "npm run prod-build && npm run prod-launch",
         "prod-deploy": "npm run cleanest && npm run install-all && npm run prod",
         "install-all": "npm install && npm install --prefix client && npm install --prefix server"
