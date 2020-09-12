@@ -10,6 +10,7 @@ import helmet from "helmet";
 import path from "path";
 import dotenv from "dotenv";
 import appRoot from "app-root-path";
+import http from "http";
 
 import privateApi from "./routes/private";
 import publicApi from "./routes/public";
@@ -60,8 +61,8 @@ app.use((req, res) => {
     res.type("txt").send("Not found");
 });
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 
-app.listen(port, () => {
-    console.log("API listening on port", port);
-});
+const httpServer = http.createServer(app);
+
+httpServer.listen(port, () => console.log(`HTTP listening on port ${port}`));
