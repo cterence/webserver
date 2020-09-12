@@ -89,7 +89,12 @@ const Welcome = () => {
             </ul>
             <button
                 onClick={hideModal}
-                style={{ position: "absolute", top: 10, right: 10 }}
+                style={{
+                    position: "absolute",
+                    top: 10,
+                    right: 10,
+                    cursor: "pointer",
+                }}
             >
                 Fermer
             </button>
@@ -125,6 +130,15 @@ const Welcome = () => {
 
     return (
         <>
+            <img
+                src="https://cloud.tchateigne.fr/index.php/s/yz5fRNYMYX2TJgc/preview"
+                style={{
+                    width: "10%",
+                    height: "10%",
+                    float: "left",
+                    margin: "20px 0 0 20px",
+                }}
+            />
             <div style={{ position: "fixed", top: 10, right: 10 }}>
                 <a
                     href="https://cloud.tchateigne.fr/index.php/s/stKQCqgkg2pFpmk"
@@ -256,6 +270,21 @@ const Welcome = () => {
                     </BlockDiv>
                 </CenteredDiv>
             </div>
+            <footer style={{ padding: "20px", textAlign: "center" }}>
+                <div>
+                    Contact :{" "}
+                    <a
+                        href="mailto:terence.chateigne@posteo.net"
+                        target="_blank"
+                    >
+                        terence.chateigne@posteo.net
+                    </a>{" "}
+                    - Github :{" "}
+                    <a href="https://github.com/cterence" target="_blank">
+                        https://github.com/cterence
+                    </a>
+                </div>
+            </footer>
         </>
     );
 };
