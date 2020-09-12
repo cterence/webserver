@@ -29,7 +29,7 @@
         "prod-build": "npm run build-client && npm run build-server",
         "prod-launch": "NODE_ENV=production node server/dist/server.js",
         "prod": "npm run prod-build && npm run prod-launch",
-        "prod-deploy": "npm run cleanest && npm run install-all && npm run prod",
+        "prod-deploy": "git pull && npm run cleanest && npm run install-all && npm run prod",
         "install-all": "npm install && npm install --prefix client && npm install --prefix server"
     },
     "keywords": [
