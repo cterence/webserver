@@ -20,6 +20,8 @@
         "react-cookie": "^4.0.3",
         "react-dom": "^16.13.1",
         "react-i18next": "^11.7.2",
+        "react-modal": "^3.11.2",
+        "react-modal-hook": "^3.0.0",
         "react-router-dom": "^5.2.0",
         "react-scripts": "^3.4.3",
         "react-select": "^3.1.0",
@@ -47,5 +49,8 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "@types/react-modal": "^3.10.6"
     }
 }

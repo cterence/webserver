@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Header } from "../../../components";
-import { ButtonProps, ButtonVariant } from "../../../components/types";
+import ReactModal from "react-modal";
+import { useModal } from "react-modal-hook";
 import { useCookies } from "react-cookie";
-// import { useTranslation } from 'react-i18next'
+
+import { ButtonProps, ButtonVariant } from "../../../components/types";
 
 const CenteredDiv = styled.div`
     text-align: center;
@@ -25,7 +26,75 @@ const BlockDiv = styled.div`
 
 const Welcome = () => {
     const [cookies, , removeCookie] = useCookies(["token"]);
-    // const { t } = useTranslation()
+    const [showModal, hideModal] = useModal(() => (
+        <ReactModal
+            isOpen
+            style={{
+                content: {
+                    right: "none",
+                    bottom: "none",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                },
+            }}
+        >
+            <ul>
+                <li>
+                    Touches :{" "}
+                    <a
+                        href="https://domikey.cn/products/sa-atlantis"
+                        target="_blank"
+                    >
+                        Domikey SA Atlantis
+                    </a>
+                </li>
+                <li>
+                    Boîtier :{" "}
+                    <a
+                        href="https://kprepublic.com/products/anodized-aluminium-flat-case-with-metal-feet-for-custom-mechanical-keyboard-black-siver-grey-red-blue-colorway-for-xd68-65"
+                        target="_blank"
+                    >
+                        KPRepublic Low Profile Alu Case
+                    </a>
+                </li>
+                <li>
+                    Microcontrolleur :{" "}
+                    <a
+                        href="https://kprepublic.com/products/xiudi-xd68-pcb-65-custom-mechanical-keyboard-support-tkg-tools-underglow-rgb-pcb-programmed-kle-lots-of-layouts"
+                        target="_blank"
+                    >
+                        XD68
+                    </a>
+                </li>
+                <li>
+                    Plaque :{" "}
+                    <a
+                        href="https://kprepublic.com/products/stainless-steel-plate-for-xiudi-xd68-65-custom-keyboard-mechanical-keyboard-plate-support-xd68"
+                        target="_blank"
+                    >
+                        XD68 Stainless Steel Plate
+                    </a>
+                </li>
+                <li>
+                    Switches :{" "}
+                    <a
+                        href="https://fr.aliexpress.com/item/4000349260690.html"
+                        target="_blank"
+                    >
+                        Durock Koala lubrifiées avec du Krytox 204g0
+                    </a>
+                </li>
+                <li>Stabilisateurs : Cherry (pas terribles)</li>
+            </ul>
+            <button
+                onClick={hideModal}
+                style={{ position: "absolute", top: 10, right: 10 }}
+            >
+                Fermer
+            </button>
+        </ReactModal>
+    ));
 
     const headerButtons: ButtonProps[] = cookies.token
         ? [
@@ -86,9 +155,13 @@ const Welcome = () => {
                         .
                     </CenteredDiv>
                     <CenteredDiv>
+                        Je prépare un diplôme d'ingénieur en Informatique avec
+                        pour spécialité les Systèmes et Réseaux.
+                    </CenteredDiv>
+                    <CenteredDiv>
                         J'adore tout ce qui a trait à la technologie et souhaite
                         en faire mon métier pour pouvoir construire plein de
-                        choses.
+                        choses utiles pour l'homme.
                     </CenteredDiv>
                     <h2
                         style={{
@@ -150,7 +223,15 @@ const Welcome = () => {
                             style={{ margin: "10px 0" }}
                             src="https://cloud.tchateigne.fr/index.php/s/2bDwmjcySFgLMgk/preview"
                         />
-                        <div>Ma dernière création.</div>
+                        <div>
+                            Ma dernière création.{" "}
+                            <span
+                                onClick={() => showModal()}
+                                style={{ color: "blue", cursor: "pointer" }}
+                            >
+                                Voir les specs.
+                            </span>
+                        </div>
                     </BlockDiv>
                     <BlockDiv>
                         <StrongDiv>Le tir à l'arc</StrongDiv>
