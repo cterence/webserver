@@ -16,6 +16,7 @@ import http from "http";
 import privateApi from "./routes/private";
 import publicApi from "./routes/public";
 import { isAuthenticated } from "./middleware/authentication";
+import { exec } from "child_process";
 
 dotenv.config();
 
@@ -68,7 +69,52 @@ const verifyPostData = (req, res, next) => {
 };
 
 app.post("/git-deploy", verifyPostData, (req, res) => {
-    console.log("push");
+    exec("git reset --hard", (error, stdout, stderr) => {
+        if (error) {
+            console.log(`error: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.log(`stderr: ${stderr}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+    });
+    exec("git clean -df", (error, stdout, stderr) => {
+        if (error) {
+            console.log(`error: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.log(`stderr: ${stderr}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+    });
+    exec("git pull -f", (error, stdout, stderr) => {
+        if (error) {
+            console.log(`error: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.log(`stderr: ${stderr}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+    });
+    exec("npm run prod-deploy", (error, stdout, stderr) => {
+        if (error) {
+            console.log(`error: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.log(`stderr: ${stderr}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+    });
+    res.sendStatus(200);
+    res.end();
 });
 
 app.use((req, res) => {
