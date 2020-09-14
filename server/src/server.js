@@ -69,7 +69,7 @@ const verifyPostData = (req, res, next) => {
 };
 
 app.post("/git-deploy", verifyPostData, (req, res) => {
-    exec("git reset --hard", (error, stdout, stderr) => {
+    exec("git -C ~/webserver reset --hard", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
         }
@@ -78,7 +78,7 @@ app.post("/git-deploy", verifyPostData, (req, res) => {
         }
         console.log(`stdout: ${stdout}`);
     });
-    exec("git clean -df", (error, stdout, stderr) => {
+    exec("git -C ~/webserver clean -df", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
         }
@@ -87,7 +87,7 @@ app.post("/git-deploy", verifyPostData, (req, res) => {
         }
         console.log(`stdout: ${stdout}`);
     });
-    exec("git pull -f", (error, stdout, stderr) => {
+    exec("git -C ~/webserver pull -f", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
         }
@@ -96,7 +96,7 @@ app.post("/git-deploy", verifyPostData, (req, res) => {
         }
         console.log(`stdout: ${stdout}`);
     });
-    exec("npm run prod-deploy", (error, stdout, stderr) => {
+    exec("npm -C ~/webserver run prod-deploy", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
         }
