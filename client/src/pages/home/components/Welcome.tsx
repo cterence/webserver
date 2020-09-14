@@ -131,7 +131,7 @@ const Welcome = () => {
     return (
         <>
             <img
-                src="https://cloud.tchateigne.fr/index.php/s/yz5fRNYMYX2TJgc/preview"
+                src="https://cloud.tchateigne.fr/index.php/s/eZeeTDk559yseRW/preview"
                 style={{
                     width: "10%",
                     height: "10%",
