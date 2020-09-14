@@ -30,6 +30,7 @@
         "prod-launch": "NODE_ENV=production node server/dist/server.js",
         "prod": "npm run prod-build && npm run prod-launch",
         "prod-deploy": "git pull && npm run cleanest && npm run install-all && npm run prod",
+        "hook-deploy": "git reset --hard && git clean -df && npm run prod-deploy",
         "install-all": "npm install && npm install --prefix client && npm install --prefix server"
     },
     "keywords": [

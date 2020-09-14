@@ -69,34 +69,7 @@ const verifyPostData = (req, res, next) => {
 };
 
 app.post("/git-deploy", verifyPostData, (req, res) => {
-    exec("git -C ~/webserver reset --hard", (error, stdout, stderr) => {
-        if (error) {
-            console.log(`error: ${error.message}`);
-        }
-        if (stderr) {
-            console.log(`stderr: ${stderr}`);
-        }
-        console.log(`stdout: ${stdout}`);
-    });
-    exec("git -C ~/webserver clean -df", (error, stdout, stderr) => {
-        if (error) {
-            console.log(`error: ${error.message}`);
-        }
-        if (stderr) {
-            console.log(`stderr: ${stderr}`);
-        }
-        console.log(`stdout: ${stdout}`);
-    });
-    exec("git -C ~/webserver pull -f", (error, stdout, stderr) => {
-        if (error) {
-            console.log(`error: ${error.message}`);
-        }
-        if (stderr) {
-            console.log(`stderr: ${stderr}`);
-        }
-        console.log(`stdout: ${stdout}`);
-    });
-    exec("npm -C ~/webserver run prod-deploy", (error, stdout, stderr) => {
+    exec("npm -C ~/webserver run hook-deploy", (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
         }
