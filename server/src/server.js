@@ -2,6 +2,7 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 
 import express from "express";
+import crypto from "crypto";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import fs from "fs";
@@ -40,12 +41,35 @@ app.use(helmet());
 app.use("/api", publicApi());
 app.use("/api", isAuthenticated, privateApi());
 
-app.post("/git-deploy", (req, res) => {
-    console.log(req.body);
+const verifyPostData = (req, res, next) => {
+    const secret = process.env.GIT_HOOK_SECRET;
+    const sigHeaderName = "X-Hub-Signature";
+    const payload = JSON.stringify(req.body);
+    if (!payload) {
+        return next("Request body empty");
+    }
+
+    const sig = req.get(sigHeaderName) || "";
+    const hmac = crypto.createHmac("sha1", secret);
+    const digest = Buffer.from(
+        "sha1=" + hmac.update(payload).digest("hex"),
+        "utf8"
+    );
+    const checksum = Buffer.from(sig, "utf8");
+    if (
+        checksum.length !== digest.length ||
+        !crypto.timingSafeEqual(digest, checksum)
+    ) {
+        return next(
+            `Request body digest (${digest}) did not match ${sigHeaderName} (${checksum})`
+        );
+    }
+    return next();
+};
+
+app.post("/git-deploy", verifyPostData, (req, res) => {
     console.log("push");
 });
-
-//
 
 app.use((req, res) => {
     res.status(404);
