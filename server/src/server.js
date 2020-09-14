@@ -40,6 +40,13 @@ app.use(helmet());
 app.use("/api", publicApi());
 app.use("/api", isAuthenticated, privateApi());
 
+app.post("/git-deploy", (req, res) => {
+    console.log(req.body);
+    console.log("push");
+});
+
+//
+
 app.use((req, res) => {
     res.status(404);
 
